@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server');
 
-const { ERROR_MSG } = require('../../utils/constants');
+const { ERROR_MSG, PUBSUB_NEW_POST } = require('../../utils/constants');
 const Post = require('../../models/Post');
 
 const checkAuth = require('../../utils/check-auth');
@@ -32,8 +32,12 @@ module.exports = {
     },
   },
   Mutation: {
-    async createPost(_, { body }, context) {
+    async createPost(_, { body = '' }, context) {
       const user = checkAuth(context);
+
+      if (!body || body.trim() === '') {
+        throw new Error(ERROR_MSG.EMPTY.POST);
+      }
 
       const newPost = new Post({
         body,
@@ -44,7 +48,7 @@ module.exports = {
 
       const post = await newPost.save();
 
-      context.pubsub.publish('NEW_POST', {
+      context.pubsub.publish(PUBSUB_NEW_POST, {
         newPost: post,
       });
 
@@ -69,7 +73,7 @@ module.exports = {
   },
   Subscription: {
     newPost: {
-      subscribe: (_, __, { pubsub }) => pubsub.asyncIterator('NEW_POST'),
+      subscribe: (_, __, { pubsub }) => pubsub.asyncIterator(PUBSUB_NEW_POST),
     },
   },
 };

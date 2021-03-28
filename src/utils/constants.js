@@ -7,6 +7,7 @@ const ERROR_MSG = {
     PASSWORD: 'Password must not be empty',
     COMMENT: 'Empty Comment',
     COMMENT_MSG: 'Comment body must not be empty',
+    POST: 'Post body must not be empty',
   },
   INVALID: {
     EMAIL: 'Email must be a valid email address',
@@ -23,6 +24,8 @@ const ERROR_MSG = {
   },
 };
 
+const PUBSUB_NEW_POST = 'NEW_POST';
+
 const MSG = {
   POST_DELETED: 'Post deleted successfully',
 };
@@ -31,4 +34,5 @@ module.exports = {
   emailRegex,
   ERROR_MSG,
   MSG,
+  PUBSUB_NEW_POST,
 };

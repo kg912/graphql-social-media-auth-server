@@ -1,10 +1,12 @@
+require('app-module-path').addPath('./src');
+
 const { ApolloServer, PubSub } = require('apollo-server'); // uses express underneath: node_modules/express
 const mongoose = require('mongoose'); // ORM library > Object relationship mapper > used to connect to MongoDB cluster
 
-const typeDefs = require('./graphql/typeDefs');
-const resolvers = require('./graphql/resolvers');
+const typeDefs = require('graphql/typeDefs');
+const resolvers = require('graphql/resolvers');
 
-const { MONGO_DB } = require('./config.js');
+const { MONGO_DB } = require('../config.js');
 
 // PubSub: Publisher/Subscribe
 
