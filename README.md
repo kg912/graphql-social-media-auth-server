@@ -12,4 +12,5 @@ Node.js app for managing authentication and posts for a social media app, using 
     SECRET_KEY: 'YOUR_KEY',
   };
   ```
-- run app locally with `npm start`
+- run `npm install`
+- run locally with `npm start`
